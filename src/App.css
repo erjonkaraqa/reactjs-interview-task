@@ -1,38 +1,453 @@
-.App {
-  text-align: center;
+*{
+  padding: 0;
+  margin: 0;
+}
+.app-container {
+  display: flex;
+  height: 100vh;
+  padding: 1rem;
+  gap: 1rem;
+  background-color: gainsboro;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.category-panel {
+  width: 30%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.notes-panel {
+  width: 40%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow-y: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.note-detail {
+  width: 40%;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow-y: auto;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+}
+
+.button {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  color: white;
+  font-weight: bold;
+}
+.button.createcategory {
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+  width: 100%;
+  height: 20%;
+  margin-bottom: 10px;
+  background-color: #65cd48;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding: 0.50rem 1.0rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button.createcategory:hover {
+  background-color: #58b83f;
+}
+
+.button.createcategory .plus-icon {
+  font-size: 1.5rem;
+  margin-left: 7rem;
+  border-left: 3px solid rgba(109,173,66,255);
+  padding-left: 1rem;
+}
+
+.button.createnote {
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+  width: 50%;
+  margin-bottom: 10px;
+  background-color: #65cd48;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding: 0.50rem 1.0rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button.createnote:hover {
+  background-color: #58b83f;
+}
+
+.button.createnote .plus-icon {
+  font-size: 1.4rem;
+  margin-left: 4rem;
+  border-left: 3px solid rgba(109,173,66,255);
+  padding-left: 1rem;
+}
+
+.category-button {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem;
+  margin-bottom: 2%;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1264a3;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-button .left-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.category-button .folder-icon {
+  font-size: 1.2rem;
+}
+
+.category-button .category-name {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.category-button .arrow-icon {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.category-button .arrow-icon.rotated {
+  transform: rotate(90deg); 
+}
+
+.category-button.active {
+  background-color: #f8f8fa;
+  color: black;
+}
+
+.category-button.active .folder-icon {
+  color: black;
+}
+
+
+.category-button.active {
+  background-color: gainsboro;
+  color: black;
+}
+
+.note-item {
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.note-preview {
+  font-size: 0.875rem;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.placeholder {
+  color: #9ca3af;
+}
+
+.modal input,
+.modal textarea {
+  width: 90%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;  
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;  
+  font-size: 1rem;
+  resize: vertical; 
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.modal-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+button.confirm,
+button.cancel {
+  padding: 10px;
+  width: 40%;
+  margin-top: 10%;
+  border-radius: 1.5rem;
+}
+
+button.confirm {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+}
+
+button.cancel {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+.note-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.note-title {
+  width: 100%;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-weight: bold;
+}
+
+.note-content {
+  width: 100%;
+  height: 150px;
+  resize: vertical;
+  padding: 10px 0;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.note-detail {
   display: flex;
   flex-direction: column;
+  width: 30%;
+  overflow-x: hidden;
+}
+
+.note-wrapper {
+  flex-direction: column;
+}
+
+.note-actions {
+  margin-top: auto;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.button {
+ 
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button.delete {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: flex-end;
+  width: 40%;
+  height: 90%;
+  background-color: #e74c3c;  
   color: white;
+  font-size: 1.0rem;
+  font-weight: 50;
+  padding: 0.75rem 0.7rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.button.delete:hover {
+  background-color: #c0392b;  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button.delete .trash-icon {
+  font-size: 1.1rem;
+  margin-left: 1.9rem;
+  border-left: 2px solid darkred;
+  padding-left: 0.5rem;
 }
+
+
+
+.button.save {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 38%;
+  height: 90%;
+  background-color: #65cd48; 
+  color: white;
+  font-size: 1.0rem;
+  font-weight: 50;
+  padding: 0.75rem 0.3rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button.save:hover {
+  background-color: #58b83f;  
+}
+
+.button.save .check-icon {
+  font-size: 1.1rem;
+  margin-left: 0.7rem;
+  border-left: 3px solid rgba(109,173,66,255);
+  padding-left: 0.4rem;
+}
+.note-header {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.note-header .input {
+ height: 50%;
+ padding-left: 2.5rem; 
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.search-icon-img {
+  position: absolute;
+  left: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f2a44; 
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.white-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-modal {
+  background-color: #f4f4f6;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.todo-modal input {
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  flex: 1;
+  outline: none;
+}
+
+.btn {
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn.green {
+  background-color: #4caf50;
+}
+
+.btn.red {
+  background-color: #f44336;
+}
+
+
