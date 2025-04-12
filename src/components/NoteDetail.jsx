@@ -26,6 +26,7 @@ export default function NoteDetail({ note, onSaveNote, onDeleteNote }) {
       onDeleteNote(note);
     }
   };
+  
 
   return (
     <div className="note-detail">
@@ -44,11 +45,11 @@ export default function NoteDetail({ note, onSaveNote, onDeleteNote }) {
 
 <div className="note-actions">
   <button className="button delete" onClick={handleDelete}>
-    Delete
+    <span>Delete</span>
     <i className="fa-solid fa-trash trash-icon"></i>
   </button>
   <button className="button save" onClick={handleSave}>
-    Save Changes
+    <span>Save Changes</span>
     <i className="fa-solid fa-check check-icon"></i>
   </button>
 </div>
