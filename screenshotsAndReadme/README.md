@@ -68,3 +68,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+How might you make this app more secure?
+
+- Use HTTPS, Authentication & Authorization, Data Encryption, Session Management.
+
+How would you make this solution scale to millions of records?
+
+- Don’t load all notes at once. Fetch them in pages or on scroll, Load UI components only when needed, Choose a Scalable Database, Use Cloud Platforms, Use containers (Docker + Kubernetes)
